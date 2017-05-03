@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.3" package="com.youme.YIMCocos2d" version="1.0.0">
+    <ui-application appid="com.youme.YIMCocos2d" exec="hellocpp" multiple="false" nodisplay="false" taskmanage="true" type="capp">
+        <label>YIMCocos2d</label>
+        <icon>YIMCocos2d.png</icon>
+    </ui-application>
+</manifest>
