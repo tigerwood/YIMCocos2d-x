@@ -61,6 +61,19 @@
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
+		BE7D97A21EB9C0B00099FF19 /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97A11EB9C0B00099FF19 /* iflyMSC.framework */; };
+		BE7D97A41EB9C0B20099FF19 /* libycommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97A31EB9C0B20099FF19 /* libycommon.a */; };
+		BE7D97A61EB9C0B50099FF19 /* libyim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97A51EB9C0B50099FF19 /* libyim.a */; };
+		BE7D97A81EB9C0DC0099FF19 /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97A71EB9C0DC0099FF19 /* libc++.1.tbd */; };
+		BE7D97AA1EB9C0E40099FF19 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97A91EB9C0E40099FF19 /* libsqlite3.0.tbd */; };
+		BE7D97AC1EB9C0EA0099FF19 /* libresolv.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97AB1EB9C0EA0099FF19 /* libresolv.9.tbd */; };
+		BE7D97AE1EB9C0F00099FF19 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97AD1EB9C0F00099FF19 /* SystemConfiguration.framework */; };
+		BE7D97B01EB9C0F80099FF19 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97AF1EB9C0F80099FF19 /* libz.tbd */; };
+		BE7D97B21EB9C0FF0099FF19 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97B11EB9C0FF0099FF19 /* CoreTelephony.framework */; };
+		BE7D97B41EB9C1070099FF19 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97B31EB9C1070099FF19 /* AVFoundation.framework */; };
+		BE7D97B61EB9C10E0099FF19 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97B51EB9C10E0099FF19 /* AudioToolbox.framework */; };
+		BE7D97B81EB9C1180099FF19 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97B71EB9C1180099FF19 /* AddressBook.framework */; };
+		BE7D97BA1EB9C11D0099FF19 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97B91EB9C11D0099FF19 /* CoreLocation.framework */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -100,6 +113,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = A07A4C241783777C0073F6A7;
 			remoteInfo = "cocos2dx iOS";
+		};
+		BE7D979F1EB9C04C0099FF19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 507B40FD1C31BDD30067B53E;
+			remoteInfo = "libcocos2d tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -156,6 +176,21 @@
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		BE7D979C1EB9C04C0099FF19 /* YIM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YIM.h; path = ../yim/include/YIM.h; sourceTree = "<group>"; };
+		BE7D979D1EB9C04C0099FF19 /* YIMPlatformDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YIMPlatformDefine.h; path = ../yim/include/YIMPlatformDefine.h; sourceTree = "<group>"; };
+		BE7D97A11EB9C0B00099FF19 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = ../yim/lib/ios/iflyMSC.framework; sourceTree = "<group>"; };
+		BE7D97A31EB9C0B20099FF19 /* libycommon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libycommon.a; path = ../yim/lib/ios/libycommon.a; sourceTree = "<group>"; };
+		BE7D97A51EB9C0B50099FF19 /* libyim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libyim.a; path = ../yim/lib/ios/libyim.a; sourceTree = "<group>"; };
+		BE7D97A71EB9C0DC0099FF19 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/usr/lib/libc++.1.tbd"; sourceTree = DEVELOPER_DIR; };
+		BE7D97A91EB9C0E40099FF19 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/usr/lib/libsqlite3.0.tbd; sourceTree = DEVELOPER_DIR; };
+		BE7D97AB1EB9C0EA0099FF19 /* libresolv.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.9.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/usr/lib/libresolv.9.tbd; sourceTree = DEVELOPER_DIR; };
+		BE7D97AD1EB9C0F00099FF19 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		BE7D97AF1EB9C0F80099FF19 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
+		BE7D97B11EB9C0FF0099FF19 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
+		BE7D97B31EB9C1070099FF19 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		BE7D97B51EB9C10E0099FF19 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
+		BE7D97B71EB9C1180099FF19 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/AddressBook.framework; sourceTree = DEVELOPER_DIR; };
+		BE7D97B91EB9C11D0099FF19 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -172,9 +207,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE7D97BA1EB9C11D0099FF19 /* CoreLocation.framework in Frameworks */,
+				BE7D97B81EB9C1180099FF19 /* AddressBook.framework in Frameworks */,
+				BE7D97B61EB9C10E0099FF19 /* AudioToolbox.framework in Frameworks */,
+				BE7D97B41EB9C1070099FF19 /* AVFoundation.framework in Frameworks */,
+				BE7D97B21EB9C0FF0099FF19 /* CoreTelephony.framework in Frameworks */,
+				BE7D97B01EB9C0F80099FF19 /* libz.tbd in Frameworks */,
+				BE7D97AE1EB9C0F00099FF19 /* SystemConfiguration.framework in Frameworks */,
+				BE7D97AC1EB9C0EA0099FF19 /* libresolv.9.tbd in Frameworks */,
+				BE7D97AA1EB9C0E40099FF19 /* libsqlite3.0.tbd in Frameworks */,
+				BE7D97A81EB9C0DC0099FF19 /* libc++.1.tbd in Frameworks */,
+				BE7D97A21EB9C0B00099FF19 /* iflyMSC.framework in Frameworks */,
 				294D0D641D0D56D500F7F5D4 /* CoreText.framework in Frameworks */,
+				BE7D97A61EB9C0B50099FF19 /* libyim.a in Frameworks */,
 				ED545A7C1B68A1F400C3958E /* libiconv.dylib in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
+				BE7D97A41EB9C0B20099FF19 /* libycommon.a in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
 				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
@@ -240,6 +288,7 @@
 			children = (
 				1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */,
 				1AC6FB07180E9839004C840B /* libcocos2d iOS.a */,
+				BE7D97A01EB9C04C0099FF19 /* libcocos2d tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -261,6 +310,19 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE7D97B91EB9C11D0099FF19 /* CoreLocation.framework */,
+				BE7D97B71EB9C1180099FF19 /* AddressBook.framework */,
+				BE7D97B51EB9C10E0099FF19 /* AudioToolbox.framework */,
+				BE7D97B31EB9C1070099FF19 /* AVFoundation.framework */,
+				BE7D97B11EB9C0FF0099FF19 /* CoreTelephony.framework */,
+				BE7D97AF1EB9C0F80099FF19 /* libz.tbd */,
+				BE7D97AD1EB9C0F00099FF19 /* SystemConfiguration.framework */,
+				BE7D97AB1EB9C0EA0099FF19 /* libresolv.9.tbd */,
+				BE7D97A91EB9C0E40099FF19 /* libsqlite3.0.tbd */,
+				BE7D97A71EB9C0DC0099FF19 /* libc++.1.tbd */,
+				BE7D97A51EB9C0B50099FF19 /* libyim.a */,
+				BE7D97A31EB9C0B20099FF19 /* libycommon.a */,
+				BE7D97A11EB9C0B00099FF19 /* iflyMSC.framework */,
 				294D0D631D0D56D500F7F5D4 /* CoreText.framework */,
 				ED545A7D1B68A1FA00C3958E /* libiconv.dylib */,
 				ED545A7B1B68A1F400C3958E /* libiconv.dylib */,
@@ -302,6 +364,8 @@
 			isa = PBXGroup;
 			children = (
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
+				BE7D979C1EB9C04C0099FF19 /* YIM.h */,
+				BE7D979D1EB9C04C0099FF19 /* YIMPlatformDefine.h */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
 				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
@@ -445,6 +509,13 @@
 			remoteRef = 1AC6FB06180E9839004C840B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		BE7D97A01EB9C04C0099FF19 /* libcocos2d tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libcocos2d tvOS.a";
+			remoteRef = BE7D979F1EB9C04C0099FF19 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -539,6 +610,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../yim/lib/ios\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -549,10 +621,13 @@
 					"CC_ENABLE_CHIPMUNK_INTEGRATION=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../yim/include\"",
+				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../yim/lib/ios\"";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
@@ -572,6 +647,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../yim/lib/ios\"";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
@@ -581,10 +657,13 @@
 					NDEBUG,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../yim/include\"",
+				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../yim/lib/ios\"";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
