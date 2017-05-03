@@ -1,5 +1,5 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#ifndef __SDKTEST_SCENE_H__
+#define __SDKTEST_SCENE_H__
 
 #include "cocos2d.h"
 
@@ -17,4 +17,4 @@ public:
     CREATE_FUNC(SDKTest);
 };
 
-#endif // __HELLOWORLD_SCENE_H__
+#endif // __SDKTEST_SCENE_H__
