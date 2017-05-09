@@ -74,6 +74,17 @@
 		BE7D97B61EB9C10E0099FF19 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97B51EB9C10E0099FF19 /* AudioToolbox.framework */; };
 		BE7D97B81EB9C1180099FF19 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97B71EB9C1180099FF19 /* AddressBook.framework */; };
 		BE7D97BA1EB9C11D0099FF19 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7D97B91EB9C11D0099FF19 /* CoreLocation.framework */; };
+		BE9067111EBC18DF00278ED9 /* IMClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE9067081EBC18DF00278ED9 /* IMClient.cpp */; };
+		BE9067121EBC18DF00278ED9 /* IMInternalManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE90670B1EBC18DF00278ED9 /* IMInternalManager.cpp */; };
+		BE9067131EBC18DF00278ED9 /* IMConnectEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE90670E1EBC18DF00278ED9 /* IMConnectEvent.cpp */; };
+		BE9067191EBC1A8A00278ED9 /* ChannelEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE9067171EBC1A8A00278ED9 /* ChannelEvent.cpp */; };
+		BE90671C1EBC1B7900278ED9 /* IMChannel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE90671A1EBC1B7900278ED9 /* IMChannel.cpp */; };
+		BE90671F1EBC1B9000278ED9 /* IMMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE90671D1EBC1B9000278ED9 /* IMMessage.cpp */; };
+		BE9067221EBC1B9C00278ED9 /* IMUser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE9067201EBC1B9C00278ED9 /* IMUser.cpp */; };
+		BE9067251EBC1EFC00278ED9 /* Conv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE9067231EBC1EFC00278ED9 /* Conv.cpp */; };
+		BE9067281EBC1F0700278ED9 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE9067261EBC1F0700278ED9 /* Log.cpp */; };
+		BE90672B1EBC1F1700278ED9 /* TimeUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE9067291EBC1F1700278ED9 /* TimeUtil.cpp */; };
+		BE9124921EC061AD00C64694 /* chat_bottom_textfield.png in Resources */ = {isa = PBXBuildFile; fileRef = BE9124911EC061AD00C64694 /* chat_bottom_textfield.png */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -191,6 +202,29 @@
 		BE7D97B51EB9C10E0099FF19 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
 		BE7D97B71EB9C1180099FF19 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/AddressBook.framework; sourceTree = DEVELOPER_DIR; };
 		BE7D97B91EB9C11D0099FF19 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		BE9067081EBC18DF00278ED9 /* IMClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IMClient.cpp; sourceTree = "<group>"; };
+		BE9067091EBC18DF00278ED9 /* IMClient.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IMClient.hpp; sourceTree = "<group>"; };
+		BE90670B1EBC18DF00278ED9 /* IMInternalManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IMInternalManager.cpp; sourceTree = "<group>"; };
+		BE90670C1EBC18DF00278ED9 /* IMInternalManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IMInternalManager.hpp; sourceTree = "<group>"; };
+		BE90670E1EBC18DF00278ED9 /* IMConnectEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IMConnectEvent.cpp; sourceTree = "<group>"; };
+		BE90670F1EBC18DF00278ED9 /* IMConnectEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMConnectEvent.h; sourceTree = "<group>"; };
+		BE9067141EBC190800278ED9 /* Const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
+		BE9067151EBC197C00278ED9 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		BE9067161EBC19E500278ED9 /* ChannelEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelEvent.h; sourceTree = "<group>"; };
+		BE9067171EBC1A8A00278ED9 /* ChannelEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChannelEvent.cpp; sourceTree = "<group>"; };
+		BE90671A1EBC1B7900278ED9 /* IMChannel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IMChannel.cpp; sourceTree = "<group>"; };
+		BE90671B1EBC1B7900278ED9 /* IMChannel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IMChannel.hpp; sourceTree = "<group>"; };
+		BE90671D1EBC1B9000278ED9 /* IMMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IMMessage.cpp; sourceTree = "<group>"; };
+		BE90671E1EBC1B9000278ED9 /* IMMessage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IMMessage.hpp; sourceTree = "<group>"; };
+		BE9067201EBC1B9C00278ED9 /* IMUser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IMUser.cpp; sourceTree = "<group>"; };
+		BE9067211EBC1B9C00278ED9 /* IMUser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IMUser.hpp; sourceTree = "<group>"; };
+		BE9067231EBC1EFC00278ED9 /* Conv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Conv.cpp; sourceTree = "<group>"; };
+		BE9067241EBC1EFC00278ED9 /* Conv.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Conv.hpp; sourceTree = "<group>"; };
+		BE9067261EBC1F0700278ED9 /* Log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
+		BE9067271EBC1F0700278ED9 /* Log.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Log.hpp; sourceTree = "<group>"; };
+		BE9067291EBC1F1700278ED9 /* TimeUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimeUtil.cpp; sourceTree = "<group>"; };
+		BE90672A1EBC1F1700278ED9 /* TimeUtil.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TimeUtil.hpp; sourceTree = "<group>"; };
+		BE9124911EC061AD00C64694 /* chat_bottom_textfield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bottom_textfield.png; path = ../../../../Project/TaskTempDemo/TalkAnchorInfoTest/Resources/chat_bottom_textfield.png; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -354,6 +388,7 @@
 				3EACC98E19EE6D4300EB3C5E /* res */,
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
 				46880B7719C43A67006E1F66 /* CloseSelected.png */,
+				BE9124911EC061AD00C64694 /* chat_bottom_textfield.png */,
 				46880B7A19C43A67006E1F66 /* HelloWorld.png */,
 			);
 			name = Resources;
@@ -425,8 +460,94 @@
 		BE7D97BB1EB9C50B0099FF19 /* YIM */ = {
 			isa = PBXGroup;
 			children = (
+				BE9066F61EBC18C700278ED9 /* Common */,
+				BE9067071EBC18DF00278ED9 /* IM */,
 			);
 			path = YIM;
+			sourceTree = "<group>";
+		};
+		BE9066F61EBC18C700278ED9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				BE9066F71EBC18C700278ED9 /* Const */,
+				BE9066F81EBC18C700278ED9 /* Interface */,
+				BE9066F91EBC18C700278ED9 /* Model */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		BE9066F71EBC18C700278ED9 /* Const */ = {
+			isa = PBXGroup;
+			children = (
+				BE9067141EBC190800278ED9 /* Const.h */,
+			);
+			path = Const;
+			sourceTree = "<group>";
+		};
+		BE9066F81EBC18C700278ED9 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		BE9066F91EBC18C700278ED9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BE9067151EBC197C00278ED9 /* Config.h */,
+				BE9067161EBC19E500278ED9 /* ChannelEvent.h */,
+				BE9067171EBC1A8A00278ED9 /* ChannelEvent.cpp */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BE9067071EBC18DF00278ED9 /* IM */ = {
+			isa = PBXGroup;
+			children = (
+				BE9067081EBC18DF00278ED9 /* IMClient.cpp */,
+				BE9067091EBC18DF00278ED9 /* IMClient.hpp */,
+				BE90670A1EBC18DF00278ED9 /* IMService */,
+				BE90670D1EBC18DF00278ED9 /* Model */,
+				BE9067101EBC18DF00278ED9 /* Utils */,
+			);
+			path = IM;
+			sourceTree = "<group>";
+		};
+		BE90670A1EBC18DF00278ED9 /* IMService */ = {
+			isa = PBXGroup;
+			children = (
+				BE90670B1EBC18DF00278ED9 /* IMInternalManager.cpp */,
+				BE90670C1EBC18DF00278ED9 /* IMInternalManager.hpp */,
+			);
+			path = IMService;
+			sourceTree = "<group>";
+		};
+		BE90670D1EBC18DF00278ED9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BE90670E1EBC18DF00278ED9 /* IMConnectEvent.cpp */,
+				BE90670F1EBC18DF00278ED9 /* IMConnectEvent.h */,
+				BE90671A1EBC1B7900278ED9 /* IMChannel.cpp */,
+				BE90671B1EBC1B7900278ED9 /* IMChannel.hpp */,
+				BE90671D1EBC1B9000278ED9 /* IMMessage.cpp */,
+				BE90671E1EBC1B9000278ED9 /* IMMessage.hpp */,
+				BE9067201EBC1B9C00278ED9 /* IMUser.cpp */,
+				BE9067211EBC1B9C00278ED9 /* IMUser.hpp */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BE9067101EBC18DF00278ED9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BE9067231EBC1EFC00278ED9 /* Conv.cpp */,
+				BE9067241EBC1EFC00278ED9 /* Conv.hpp */,
+				BE9067261EBC1F0700278ED9 /* Log.cpp */,
+				BE9067271EBC1F0700278ED9 /* Log.hpp */,
+				BE9067291EBC1F1700278ED9 /* TimeUtil.cpp */,
+				BE90672A1EBC1F1700278ED9 /* TimeUtil.hpp */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -545,6 +666,7 @@
 				46880B8119C43A67006E1F66 /* HelloWorld.png in Resources */,
 				46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
+				BE9124921EC061AD00C64694 /* chat_bottom_textfield.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
@@ -584,10 +706,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				BE90671C1EBC1B7900278ED9 /* IMChannel.cpp in Sources */,
+				BE90671F1EBC1B9000278ED9 /* IMMessage.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* SDKTestScene.cpp in Sources */,
+				BE9067281EBC1F0700278ED9 /* Log.cpp in Sources */,
+				BE9067221EBC1B9C00278ED9 /* IMUser.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				BE9067111EBC18DF00278ED9 /* IMClient.cpp in Sources */,
+				BE9067191EBC1A8A00278ED9 /* ChannelEvent.cpp in Sources */,
+				BE9067131EBC18DF00278ED9 /* IMConnectEvent.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				BE90672B1EBC1F1700278ED9 /* TimeUtil.cpp in Sources */,
+				BE9067121EBC18DF00278ED9 /* IMInternalManager.cpp in Sources */,
+				BE9067251EBC1EFC00278ED9 /* Conv.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -639,9 +771,10 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../yim/include\"",
+					"\"$(SRCROOT)/../Classes/YIM\"",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../yim/lib/ios\"";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
@@ -678,9 +811,10 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../yim/include\"",
+					"\"$(SRCROOT)/../Classes/YIM\"",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../yim/lib/ios\"";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",

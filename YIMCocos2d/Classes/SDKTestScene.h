@@ -3,6 +3,23 @@
 
 #include "cocos2d.h"
 
+
+#include <stdio.h>
+#include <string>
+#include "cocos2d.h"
+#include <vector>
+
+#include "ui/CocosGUI.h"
+using namespace cocos2d::ui;
+
+#include "cocos-ext.h"
+using namespace cocos2d::extension;
+
+using namespace std;
+class EditBox;
+
+USING_NS_CC;
+
 class SDKTest : public cocos2d::Layer
 {
 public:
@@ -10,8 +27,27 @@ public:
 
     virtual bool init();
     
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
+    void loadui();
+    
+    void loaduimsg();
+    
+    void onBtnLogin( Ref* pSender );
+    void onBtnLogout( Ref* pSender );
+    void onBtnEnter( Ref* pSender );
+    void onBtnLeave( Ref* pSender );
+    
+    void onBtnSendText( Ref* pSender);
+
+
+
+    
+    cocos2d::Label* labelTips;
+
+    cocos2d::extension::EditBox *  idInput;
+    cocos2d::extension::EditBox *  roomInput;
+
+
+
     
     // implement the "static create()" method manually
     CREATE_FUNC(SDKTest);
