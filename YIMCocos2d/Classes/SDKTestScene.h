@@ -30,6 +30,7 @@ public:
     void loadui();
     
     void loaduimsg();
+    void loadLocation();
     
     void onBtnLogin( Ref* pSender );
     void onBtnLogout( Ref* pSender );
@@ -39,6 +40,9 @@ public:
     void onBtnSendText( Ref* pSender);
     void onBtnStartAudio( Ref* pSender );
     void onBtnStopAudio( Ref* pSender );
+    
+    void onBtnUpdateLocation( Ref* pSender );
+    void onBtnGetNearby( Ref* pSender  );
 
 
 

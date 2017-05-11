@@ -123,11 +123,15 @@ void IMInternalManager::OnLeaveChatRoom(YIMErrorcode errorcode, const XString& c
 ///IYIMLocationCallback
 // 获取自己位置回调
 void IMInternalManager::OnUpdateLocation(YIMErrorcode errorcode, std::shared_ptr<GeographyLocation> location){
-    
+    if( IMClient::getInstance()->updateLocationCallback != NULL ){
+        IMClient::getInstance()->updateLocationCallback( Conv::ErrorCodeConvert( errorcode ), location );
+    }
 }
 // 获取附近目标回调
 void IMInternalManager::OnGetNearbyObjects(YIMErrorcode errorcode, std::list< std::shared_ptr<RelativeLocation> >  neighbourList, unsigned int startDistance, unsigned int endDistance) {
-    
+    if( IMClient::getInstance()->getNearbyObjectsCallback != NULL ){
+        IMClient::getInstance()->getNearbyObjectsCallback( Conv::ErrorCodeConvert( errorcode ), neighbourList, startDistance, endDistance  );
+    }
 }
 
 
@@ -141,7 +145,7 @@ void IMInternalManager::OnSendMessageStatus(XUINT64 requestID, YIMErrorcode erro
             switch ( callbackObj->msgType ) {
                 case MessageBodyType_TXT:
                 {
-                    TextMessage* pTextMsg = ((TextMessage*)callbackObj->message);
+                    TextMessage* pTextMsg = ((TextMessage*)callbackObj->message.get());
                     pTextMsg->sendTime = time(0);
                     if( errorcode == YIMErrorcode_Success ){
                         pTextMsg->sendStatus = SendStatus::Sended;
@@ -151,15 +155,13 @@ void IMInternalManager::OnSendMessageStatus(XUINT64 requestID, YIMErrorcode erro
                     }
                     
                     pTextMsg->isReceiveFromServer = false;
-                    callbackObj->callback( Conv::ErrorCodeConvert( errorcode ), *pTextMsg );
+                    callbackObj->callback( Conv::ErrorCodeConvert( errorcode ), callbackObj->message );
                 }
                     break;
                 default:
                     break;
             }
         }
-        
-        delete callbackObj->message;
         m_mapMessageCallback.erase( it );
     }
 }
@@ -179,7 +181,7 @@ void IMInternalManager::OnSendAudioMessageStatusChange(XUINT64 requestID, YIMErr
         callbackObj = &(it->second);
         
         if( callbackObj != NULL && callbackObj->callback != NULL && callbackObj->msgType == MessageBodyType_Voice ){
-            AudioMessage* pVoiceMsg = ( AudioMessage*) callbackObj->message;
+            AudioMessage* pVoiceMsg = ( AudioMessage*) callbackObj->message.get();
             
             pVoiceMsg->recognizedText = text;
             pVoiceMsg->audioFilePath = audioPath;
@@ -201,7 +203,7 @@ void IMInternalManager::OnSendAudioMessageStatusChange(XUINT64 requestID, YIMErr
             
             pVoiceMsg->isReceiveFromServer = false;
             
-            callbackObj->callback( Conv::ErrorCodeConvert( errorcode ), *pVoiceMsg );
+            callbackObj->callback( Conv::ErrorCodeConvert( errorcode ), callbackObj->message );
         }
        
         //todo:两个消息，走同一个接口，不太好吧。
@@ -263,7 +265,9 @@ void IMInternalManager::OnRecvMessage(std::shared_ptr<IYIMMessage> message) {
         if( msg != NULL ){
             msg->requestID = message->GetMessageID();
             
-            IMClient::getInstance()->receiveMessageListener( *msg );
+            std::shared_ptr<IMMessage> pMsg(msg);
+            
+            IMClient::getInstance()->receiveMessageListener( pMsg );
             
             delete  msg;
         }
@@ -295,15 +299,15 @@ void IMInternalManager::OnTranslateTextComplete(YIMErrorcode errorcode, unsigned
 
 ///IYIMDownloadCallback
 void IMInternalManager::OnDownload(XUINT64 messageID, YIMErrorcode errorcode, const XString& savePath){
-//    auto it = m_mapDownloadCallback.find( messageID );
-//    if( it != m_mapDownloadCallback.end() ){
-//        auto callback = it->second;
-//        if( callback != NULL ){
-//            callback( Conv::ErrorCodeConvert( errorcode ), savePath );
-//        }
-//        
-//        m_mapDownloadCallback.erase( it );
-//    }
+    auto it = m_mapDownloadCallback.find( messageID );
+    if( it != m_mapDownloadCallback.end() ){
+        auto callback = it->second;
+        if( callback != NULL ){
+            callback( Conv::ErrorCodeConvert( errorcode ),  messageID, savePath );
+        }
+        
+        m_mapDownloadCallback.erase( it );
+    }
 }
 
 ///IYIMContactCallback

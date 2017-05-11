@@ -58,7 +58,9 @@ bool SDKTest::init()
 
     loadui();
     
-    loaduimsg();
+    //loaduimsg();
+    
+    loadLocation();
     
     IMClient::getInstance()->SetKickOffListener( [](const KickOffEvent& evt ){
         cout<<"踢线回调:"<<endl;
@@ -74,8 +76,8 @@ bool SDKTest::init()
         
     });
     
-    IMClient::getInstance()->SetReceiveMessageListener( []( const IMMessage& msg ){
-        switch ( msg.messageType) {
+    IMClient::getInstance()->SetReceiveMessageListener( []( std::shared_ptr<IMMessage> msg ){
+        switch ( msg->messageType) {
             case MessageBodyType_TXT:
             {
                 TextMessage& textMsg = (TextMessage&)msg;
@@ -152,26 +154,29 @@ void SDKTest::onBtnLeave( Ref* pSender ){
 }
 
 void SDKTest::onBtnSendText( Ref* pSender){
-    IMClient::getInstance()->SendTextMessage( g_userID.c_str(), ChatType::PrivateChat, "I'm Pinky!oo!", [](StatusCode code, const IMMessage& msg){
-        TextMessage& textMsg = (TextMessage&)msg;
-        
-        cout<<"发送文本消息回调"<<code<<":"<<textMsg.content<<endl;
-        cout<<textMsg.senderID<<","<<textMsg.receiverID<<","<<textMsg.sendTime<<","<<textMsg.sendStatus<<","<<textMsg.chatType<<","<<textMsg.requestID<<endl;
-
-        
+    IMClient::getInstance()->SendTextMessage( g_userID.c_str(), ChatType::PrivateChat, "I'm Pinky!oo!", [](StatusCode code, std::shared_ptr<IMMessage> msg ){
+        if( msg != NULL ){
+            TextMessage& textMsg = (TextMessage&)(*msg.get());
+            
+            cout<<"发送文本消息回调"<<code<<":"<<textMsg.content<<endl;
+            cout<<textMsg.senderID<<","<<textMsg.receiverID<<","<<textMsg.sendTime<<","<<textMsg.sendStatus<<","<<textMsg.chatType<<","<<textMsg.requestID<<endl;
+        }
     });
 }
 
 void SDKTest::onBtnStartAudio( Ref* pSender ){
-    IMClient::getInstance()->StartRecordAudio( g_userID.c_str(), ChatType::PrivateChat, "Test Start Audio",  true , [](StatusCode code, const IMMessage& msg){
-        AudioMessage& audioMsg = (AudioMessage&)msg;
-
-        cout<<"发送语音消息"<<code<<":"<<endl;
-        cout<<"时长:"<<audioMsg.audioDuration<<endl;
-        cout<<"Sending:"<<audioMsg.sendStatus<<endl;
-        cout<<"附加信息:"<<audioMsg.extraParam<<endl;
-        cout<<"识别文本:"<<audioMsg.recognizedText<<endl;
-        cout<<"本地路径:"<<audioMsg.audioFilePath<<endl;
+    IMClient::getInstance()->StartRecordAudio( g_userID.c_str(), ChatType::PrivateChat, "Test Start Audio",  true , [](StatusCode code, std::shared_ptr<IMMessage> msg ){
+        if( msg != NULL ){
+            AudioMessage& audioMsg = (AudioMessage&)(*msg.get());
+            
+            cout<<"发送语音消息"<<code<<":"<<endl;
+            cout<<"时长:"<<audioMsg.audioDuration<<endl;
+            cout<<"Sending:"<<audioMsg.sendStatus<<endl;
+            cout<<"附加信息:"<<audioMsg.extraParam<<endl;
+            cout<<"识别文本:"<<audioMsg.recognizedText<<endl;
+            cout<<"本地路径:"<<audioMsg.audioFilePath<<endl;
+        }
+       
     });
     
 }
@@ -270,5 +275,64 @@ void SDKTest::loaduimsg(){
 
     
 }
+
+void SDKTest::onBtnUpdateLocation( Ref* pSender ){
+    IMClient::getInstance()->SetUpdateInterval( 30 );
+    
+    IMClient::getInstance()->GetCurrentLocation( [](StatusCode code , std::shared_ptr<GeographyLocation> location ){
+        cout<<"更新位置回调:err:"<<code<<endl;
+        if( code == StatusCode::Success ){
+            cout<<"经纬度："<<location->GetLatitude()<<","<<location->GetLongitude()<<endl;
+            cout<<"行政区："<<location->GetCountry()<<":"<<location->GetProvince()<<","<<location->GetCity()<<endl;
+            cout<<location->GetDistrictCounty()<<","<<location->GetStreet()<<endl;
+            cout<<"编码:"<<location->GetDistrictCode()<<endl;
+        }
+     });
+}
+
+void SDKTest::onBtnGetNearby( Ref* pSender  ){
+    IMClient::getInstance()->GetNearbyObjects( 10 , "", DISTRICT_UNKNOW, false,
+                    [](StatusCode code , std::list< std::shared_ptr<RelativeLocation> > neighbourList,  unsigned int startDistance, unsigned int endDistance){
+                        cout<<"获取附近的人回调:err:"<<code<<",count:"<<neighbourList.size()<<endl;
+                        cout<<"start:"<<startDistance<<",end:"<<endDistance<<endl;
+                        
+                        auto it = neighbourList.begin();
+                        for(; it!= neighbourList.end(); ++it ){
+                            auto location = *it;
+                            cout<<"用户ID："<<location->GetUserID()<<"........................."<<endl;
+                            cout<<"经纬度："<<location->GetLatitude()<<","<<location->GetLongitude()<<endl;
+                            cout<<"行政区："<<location->GetCountry()<<":"<<location->GetProvince()<<","<<location->GetCity()<<endl;
+                            cout<<location->GetDistrictCounty()<<","<<location->GetStreet()<<endl;
+                            cout<<"距离:"<<location->GetDistance()<<endl;
+
+                        }
+                        
+    });
+    
+}
+
+void SDKTest::loadLocation(){
+    auto node = Node::create();
+    node->setPosition(0 , 0 );
+    this->addChild( node );
+    
+    
+    auto btnUpdate = Button::create();
+    btnUpdate->setTitleFontSize( 80 );
+    btnUpdate->setTitleText("更新位置");
+    btnUpdate->setPosition( Vec2( 100,  400  ) );
+    btnUpdate->setAnchorPoint( Vec2(0, 0) );
+    btnUpdate->addClickEventListener( CC_CALLBACK_1( SDKTest::onBtnUpdateLocation, this  ) );
+    node->addChild( btnUpdate );
+    
+    auto btnGetNearby = Button::create();
+    btnGetNearby->setTitleFontSize( 80 );
+    btnGetNearby->setTitleText("附近的人");
+    btnGetNearby->setPosition( Vec2( 400,  400  ) );
+    btnGetNearby->setAnchorPoint( Vec2(0, 0) );
+    btnGetNearby->addClickEventListener( CC_CALLBACK_1( SDKTest::onBtnGetNearby, this  ) );
+    node->addChild( btnGetNearby );
+}
+
 
 

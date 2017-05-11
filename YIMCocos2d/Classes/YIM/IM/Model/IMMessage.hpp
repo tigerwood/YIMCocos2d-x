@@ -66,15 +66,6 @@ public:
     void Play( const PlayCompletionCallback& playCompletionCallback );
     
     void PlayInQueue();
-    
-    typedef std::function< void (StatusCode, const AudioMessage& )>  DownloadAudioCallback;
-
-//    void Download( const DownloadCallback& downloadCallback );
-//    
-    void Download( const XString& targetPath, const DownloadAudioCallback& downloadCallback );
-    
-//    XString GetUniqAudioPath();
-    
 };
 
 class TextMessage :  public IMMessage{

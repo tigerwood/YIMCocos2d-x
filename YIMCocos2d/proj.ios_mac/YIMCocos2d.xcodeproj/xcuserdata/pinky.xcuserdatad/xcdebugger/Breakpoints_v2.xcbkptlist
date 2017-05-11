@@ -41,29 +41,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../Classes/YIM/IM/Model/IMMessage.cpp"
-            timestampString = "515993813.730089"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "AudioMessage::Download( const XString&amp; targetPath, const DownloadAudioCallback&amp; downloadCallback )"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "../Classes/YIM/IM/IMService/IMInternalManager.cpp"
             timestampString = "515992880.718471"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "73"
             endingLineNumber = "73"
-            landmarkName = "IMInternalManager::OnLogin(YIMErrorcode errorcode, const XCHAR* userID)"
+            landmarkName = "IMInternalManager::OnLogin(YIMErrorcode errorcode, const XString&amp; userID)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -79,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "115"
             endingLineNumber = "115"
-            landmarkName = "IMInternalManager::OnLeaveChatRoom(YIMErrorcode errorcode, const XCHAR* chatRoomID)"
+            landmarkName = "IMInternalManager::OnLeaveChatRoom(YIMErrorcode errorcode, const XString&amp; chatRoomID)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/SDKTestScene.cpp"
-            timestampString = "516011587.528888"
+            timestampString = "516179062.32654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "SDKTest::onBtnLogin( Ref* pSender )"
             landmarkType = "7">
          </BreakpointContent>
@@ -186,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/SDKTestScene.cpp"
-            timestampString = "516011587.528888"
+            timestampString = "516179062.32654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "SDKTest::onBtnLogin( Ref* pSender )"
             landmarkType = "7">
          </BreakpointContent>
@@ -202,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/SDKTestScene.cpp"
-            timestampString = "516011587.528888"
+            timestampString = "516179062.32654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "SDKTest::onBtnSendText( Ref* pSender)"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/SDKTestScene.cpp"
-            timestampString = "516011587.528888"
+            timestampString = "516179062.32654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "SDKTest::onBtnSendText( Ref* pSender)"
             landmarkType = "7">
             <Locations>
@@ -266,12 +250,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/YIM/IM/IMService/IMInternalManager.cpp"
-            timestampString = "516011587.528888"
+            timestampString = "516179062.32654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
-            landmarkName = "IMInternalManager::OnRecvMessage(IYIMMessage* message)"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
+            landmarkName = "IMInternalManager::OnRecvMessage(std::shared_ptr&lt;IYIMMessage&gt; message)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -282,12 +266,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/YIM/IM/IMService/IMInternalManager.cpp"
-            timestampString = "516009156.872794"
+            timestampString = "516179062.32654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
-            landmarkName = "IMInternalManager::OnRecvMessage(IYIMMessage* message)"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "IMInternalManager::OnRecvMessage(std::shared_ptr&lt;IYIMMessage&gt; message)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -298,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/YIM/IM/IMClient.cpp"
-            timestampString = "515995606.815669"
+            timestampString = "516179062.32654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
             landmarkName = "IMClient::StartRecordAudio(const XString&amp; reciverID, ChatType chatType,const XString&amp; extraMsg, bool recognizeText, const MessageCallback&amp; sendCallback )"
             landmarkType = "7">
          </BreakpointContent>
@@ -314,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/SDKTestScene.cpp"
-            timestampString = "516011794.407972"
+            timestampString = "516179062.32654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "SDKTest::onBtnStartAudio( Ref* pSender )"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,12 +314,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/YIM/IM/IMService/IMInternalManager.cpp"
-            timestampString = "516008963.929617"
+            timestampString = "516179062.32654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "IMInternalManager::OnSendAudioMessageStatus(XUINT64 requestID, YIMErrorcode errorcode, const XCHAR* text, const XCHAR* audioPath, unsigned int audioTime)"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "IMInternalManager::OnSendAudioMessageStatus(XUINT64 requestID, YIMErrorcode errorcode, const XString&amp; text, const XString&amp; audioPath, unsigned int audioTime)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -346,44 +330,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/YIM/IM/IMService/IMInternalManager.cpp"
-            timestampString = "516008964.889486"
+            timestampString = "516179062.32654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "IMInternalManager::OnStartSendAudioMessage(XUINT64 requestID, YIMErrorcode errorcode, const XCHAR* text, const XCHAR* audioPath, unsigned int audioTime)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../Classes/YIM/IM/Model/IMMessage.cpp"
-            timestampString = "516012839.462517"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "AudioMessage::Download( const XString&amp; targetPath, const DownloadAudioCallback&amp; downloadCallback )"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../Classes/YIM/IM/Model/IMMessage.cpp"
-            timestampString = "516078992.760141"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "AudioMessage::Download( const XString&amp; targetPath, const DownloadAudioCallback&amp; downloadCallback )"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
+            landmarkName = "IMInternalManager::OnStartSendAudioMessage(XUINT64 requestID, YIMErrorcode errorcode, const XString&amp; text, const XString&amp; audioPath, unsigned int audioTime)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

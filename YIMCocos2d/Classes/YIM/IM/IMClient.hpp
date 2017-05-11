@@ -18,19 +18,20 @@
 #include <IM/Model/IMChannel.hpp>
 #include <IM/Model/IMUser.hpp>
 #include <IM/Model/IMMessage.hpp>
+#include <memory>
 
-typedef std::function< void( StatusCode, const IMMessage& ) > MessageCallback;
-typedef std::function< void(StatusCode, const XString& ) > DownloadCallback;
+typedef std::function< void( StatusCode, std::shared_ptr<IMMessage> ) > MessageCallback;
+typedef std::function< void(StatusCode, XUINT64, const XString& ) > DownloadCallback;
 
 
 class MessageCallbackObject{
 public:
     MessageCallback callback;
-    IMMessage* message;
+    std::shared_ptr<IMMessage> message;
     YIMMessageBodyType msgType;
     
     MessageCallbackObject();
-    MessageCallbackObject( IMMessage* msg, YIMMessageBodyType msgtype, const MessageCallback& callback );
+    MessageCallbackObject( std::shared_ptr<IMMessage> msg, YIMMessageBodyType msgtype, const MessageCallback& callback );
 };
 
 
@@ -56,17 +57,13 @@ namespace YouMe{
         
         typedef std::function< void (const ChannelEvent&) > JoinChannelCallback;
         typedef std::function< void (const ChannelEvent&) > LeaveChannelCallback;
-        
-        typedef std::function< void (StatusCode, TextMessage)>  SendTextCallback;
-        typedef std::function< void (StatusCode, IYIMMessage)>  SendAudioCallback;
-        typedef std::function< void (StatusCode, XString)>  DownloadCallback;
 
-        
-
-        
         typedef std::function< void (const IMConnectEvent&) > ConnectListener;
         typedef std::function< void (const ChannelEvent&) > ChannelEventListener;
-        typedef std::function< void (const IMMessage&) > ReceiveMessageListener;
+        typedef std::function< void (std::shared_ptr<IMMessage>) > ReceiveMessageListener;
+        
+        typedef std::function< void (StatusCode, std::shared_ptr<GeographyLocation> )>  UpdateLocationCallback;
+        typedef std::function< void (StatusCode, std::list< std::shared_ptr<RelativeLocation> > neighbourList,  unsigned int startDistance, unsigned int endDistance )> GetNearbyObjectsCallback;
         
     public:
         LoginCallback loginCallback;
@@ -83,6 +80,13 @@ namespace YouMe{
 
         
         std::vector<IMChannel> m_vecChannels;
+        
+        void SetUpdateInterval(unsigned int interval);
+        void GetCurrentLocation( const UpdateLocationCallback& cb  );
+        void GetNearbyObjects( int count, const XCHAR* serverAreaID, DistrictLevel districtlevel , bool resetStartDistance ,  const GetNearbyObjectsCallback& cb  );
+        
+        UpdateLocationCallback updateLocationCallback;
+        GetNearbyObjectsCallback  getNearbyObjectsCallback;
         
         
     public:
@@ -219,11 +223,11 @@ namespace YouMe{
 //        //查询播放状态
 //        bool IsPlaying();
 //        
-//        //获取语音缓存目录
+        //获取语音缓存目录
 //        XString GetAudioCachePath();
 //        //清理语音缓存目录(注意清空语音缓存目录后历史记录中会无法读取到音频文件，调用清理历史记录接口也会自动删除对应的音频缓存文件)
 //        bool ClearAudioCachePath();
-//        
+//
         
     private:
         static IMClient* s_ins;

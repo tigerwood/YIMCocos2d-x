@@ -15,7 +15,7 @@
 using namespace std;
 
 
-MessageCallbackObject::MessageCallbackObject( IMMessage* msg, YIMMessageBodyType msgtype, const MessageCallback& callback ){
+MessageCallbackObject::MessageCallbackObject( std::shared_ptr<IMMessage> msg, YIMMessageBodyType msgtype, const MessageCallback& callback ){
     this->message = msg;
     this->msgType = msgtype;
     this->callback = callback;
@@ -168,7 +168,7 @@ namespace  YouMe {
         
         //todo:download的返回结果只告诉下载的地址，都不晓得是哪个消息，靠谱吗？
         if( !ret && callback != NULL ) {
-            callback( StatusCode::START_DOWNLOAD_FAIL, "" );
+            callback( StatusCode::START_DOWNLOAD_FAIL, requestID,  "" );
         }
     }
 
@@ -223,19 +223,23 @@ namespace  YouMe {
         
         YIMErrorcode code = YIMErrorcode_Success;
         code = m_imMgr->IMManager()->GetMessageManager()->SendTextMessage( receiverID.c_str(), YIMChatType(chatType), msgContent.c_str(), &reqID );
+        
         auto msg = new TextMessage( GetCurrentUserID().userID, receiverID, chatType, msgContent, false );
+        std::shared_ptr< IMMessage>  pMsg(msg);
+        
         if( code == YIMErrorcode_Success ){
             msg->sendStatus = SendStatus::Sending;
             msg->requestID = reqID;
             
-            MessageCallbackObject  callbackObj( (IMMessage*)msg, MessageBodyType_TXT, sendCallback );
+            
+            MessageCallbackObject  callbackObj( pMsg, MessageBodyType_TXT, sendCallback );
             
             m_imMgr->AddMessageCallback( reqID,  callbackObj );
         }
         else{
             msg->sendStatus = SendStatus::Fail;
             if( sendCallback != NULL ){
-                sendCallback( Conv::ErrorCodeConvert( code ), *msg );
+                sendCallback( Conv::ErrorCodeConvert( code ), pMsg );
             }
         }
         
@@ -254,20 +258,21 @@ namespace  YouMe {
         }
         
         auto msg = new AudioMessage( GetCurrentUserID().userID, reciverID, (ChatType)chatType, extraMsg, false );
+        std::shared_ptr< IMMessage>  pMsg(msg);
         
         if( code == YIMErrorcode_Success ){
             msg->sendStatus = SendStatus::NotStartSend;
             msg->requestID = reqID;
             
             lastRecordAudioMessage = msg;
-            MessageCallbackObject  callbackObj( (IMMessage*)msg, MessageBodyType_Voice, sendCallback );
+            MessageCallbackObject  callbackObj( pMsg, MessageBodyType_Voice, sendCallback );
             m_imMgr->AddMessageCallback( reqID,  callbackObj );
         }
         else{
             msg->sendStatus = SendStatus::Fail;
             //Log::e("Start Record Fail! code:"+code.ToString());
             if( sendCallback != NULL ){
-                sendCallback( Conv::ErrorCodeConvert( code ), *msg );
+                sendCallback( Conv::ErrorCodeConvert( code ), pMsg );
             }
         }
         return *msg;
@@ -293,19 +298,37 @@ namespace  YouMe {
             return false;
         }
     }
+    
+    void IMClient::SetUpdateInterval(unsigned int interval){
+        m_imMgr->IMManager()->GetLocationManager()->SetUpdateInterval( interval );
+    }
+
+    void IMClient::GetCurrentLocation( const UpdateLocationCallback& cb  ){
+        updateLocationCallback = cb;
+
+        YIMErrorcode code = YIMErrorcode_Success;
+        code = m_imMgr->IMManager()->GetLocationManager()->GetCurrentLocation();
+        if( code != YIMErrorcode_Success ){
+            updateLocationCallback( Conv::ErrorCodeConvert( code ), NULL );
+        }
+    }
+    
+    void IMClient::GetNearbyObjects(  int count, const XCHAR* serverAreaID, DistrictLevel districtlevel , bool resetStartDistance , const GetNearbyObjectsCallback& cb  ){
+        getNearbyObjectsCallback = cb;
+        
+        YIMErrorcode code = YIMErrorcode_Success;
+        code = m_imMgr->IMManager()->GetLocationManager()->GetNearbyObjects( count,
+                                                                            serverAreaID,
+                                                                            districtlevel,
+                                                                            resetStartDistance );
+        if( code != YIMErrorcode_Success ){
+            updateLocationCallback( Conv::ErrorCodeConvert( code ), NULL );
+        }
+    }
 //
 //
 //    ///////////////////////////////////////////////////////////////////////////////////////////////
 //
-//    
-//    StatusCode IMClient::GetCurrentLocation() {
-//        
-//    }
-//
-//    
-//    StatusCode IMClient::GetNearbyObjects(int count, const XCHAR* serverAreaID, DistrictLevel districtlevel , bool resetStartDistance ) {
-//        
-//    }
 //
 //    
 //    void IMClient::SetUpdateInterval(unsigned int interval) {
@@ -410,7 +433,7 @@ namespace  YouMe {
 //        auto code =  m_imMgr->IMManager()->GetMessageManager()->SetRoomHistoryMessageSwitch( roomIDs, save );
 //        return Conv::ErrorCodeConvert( code );
 //    }
-//    
+//
 //    StatusCode IMClient::TranslateText(unsigned int* requestID, const XCHAR* text, LanguageCode destLangCode, LanguageCode srcLangCode ){
 //        
 //    }
@@ -419,7 +442,7 @@ namespace  YouMe {
 //    void IMClient::SetAudioCacheDir(const XCHAR* audioCacheDir){
 //        m_imMgr->IMManager()->SetAudioCacheDir( audioCacheDir );
 //    }
-//    
+//
 //
 //    StatusCode IMClient::GetRecentContacts(){
 //        

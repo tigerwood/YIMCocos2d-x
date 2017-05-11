@@ -55,46 +55,6 @@ void AudioMessage::PlayInQueue(){
     //todo:
 }
 
-//void AudioMessage::Download( const DownloadCallback& downloadCallback ){
-//    
-//}
-
-void AudioMessage::Download( const XString& targetPath, const DownloadAudioCallback& downloadCallback ){
-    if( !isReceiveFromServer ){
-        Log::e("只能下载从服务器收到的语音消息，自己发送的语音消息不需要下载。");
-        return;
-    }
-    
-    if( downloadStatus == MessageDownloadStatus::DOWNLOADED ){
-        if( downloadCallback != NULL ){
-            downloadCallback( StatusCode::Success, *this );
-            return ;
-        }
-    }
-
-    downloadStatus = MessageDownloadStatus::DOWNLOADING;
-    
-    IMClient::getInstance()->DownloadFile( requestID, targetPath, [=](StatusCode code, const XString& filePath){
-        if( code == StatusCode::Success ){
-            downloadStatus = MessageDownloadStatus::DOWNLOADED;
-        }
-        else{
-            downloadStatus = MessageDownloadStatus::DOWNLOAD_FAIL ;
-        }
-        
-        audioFilePath = filePath;
-        
-        if( downloadCallback != NULL ){
-            downloadCallback( code, *this );
-        }
-    });
-    
-}
-
-//XString AudioMessage::GetUniqAudioPath(){
-//    
-//}
-
 TextMessage::TextMessage( const XString& sender, const XString& receiver, ChatType chatType, const XString& content, bool isFromServer )
 :IMMessage( YIMMessageBodyType::MessageBodyType_TXT, sender, receiver, chatType,  isFromServer ){
     this->content = content;
