@@ -37,6 +37,9 @@ public:
     void onBtnLeave( Ref* pSender );
     
     void onBtnSendText( Ref* pSender);
+    void onBtnStartAudio( Ref* pSender );
+    void onBtnStopAudio( Ref* pSender );
+
 
 
 

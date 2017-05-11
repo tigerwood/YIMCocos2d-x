@@ -116,15 +116,17 @@ namespace YouMe{
 //
 
         TextMessage SendTextMessage( const XString& receiverID,  ChatType chatType, const XString& msgContent, const MessageCallback& sendCallback );
-//        void StartRecordAudio(const XString& reciverID, YIMChatType chatType,const XString&  extraMsg, bool recognizeText, const SendAudioCallback& sendCallback );
-//        bool StopRecordAndSendAudio();
-//        
-//        void DownloadFile( XUINT64 requestID,  const XString& targetFilePath, const DownloadCallback& callback );
-//        
+        
+        AudioMessage StartRecordAudio(const XString& reciverID, ChatType chatType,const XString&  extraMsg, bool recognizeText, const MessageCallback& sendCallback );
+        bool StopRecordAndSendAudio();
+
+        void DownloadFile( XUINT64 requestID,  const XString& targetFilePath, const DownloadCallback& callback );
+
         void OnConnect( IMConnectEvent connectEvent );
         void OnChannelEvent( ChannelEvent channelEvent );
         
-    
+    private:
+        AudioMessage* lastRecordAudioMessage;
         
     public:
         // 获取当前地理位置

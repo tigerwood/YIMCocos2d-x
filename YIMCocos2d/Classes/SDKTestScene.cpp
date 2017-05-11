@@ -85,6 +85,16 @@ bool SDKTest::init()
                
             }
                 break;
+            case MessageBodyType_Voice:
+            {
+                AudioMessage& audioMsg = (AudioMessage&)msg;
+                cout<<"接受语音消息回调"<<endl;
+                cout<<"时长:"<<audioMsg.audioDuration<<endl;
+                cout<<"Sending:"<<audioMsg.sendStatus<<endl;
+                cout<<"附加信息:"<<audioMsg.extraParam<<endl;
+                cout<<"识别文本:"<<audioMsg.recognizedText<<endl;
+            }
+                break;
             default:
                 break;
         }
@@ -145,10 +155,29 @@ void SDKTest::onBtnSendText( Ref* pSender){
     IMClient::getInstance()->SendTextMessage( g_userID.c_str(), ChatType::PrivateChat, "I'm Pinky!oo!", [](StatusCode code, const IMMessage& msg){
         TextMessage& textMsg = (TextMessage&)msg;
         
-        cout<<"发送文本消息回调"<<textMsg.content<<endl;
+        cout<<"发送文本消息回调"<<code<<":"<<textMsg.content<<endl;
         cout<<textMsg.senderID<<","<<textMsg.receiverID<<","<<textMsg.sendTime<<","<<textMsg.sendStatus<<","<<textMsg.chatType<<","<<textMsg.requestID<<endl;
+
         
     });
+}
+
+void SDKTest::onBtnStartAudio( Ref* pSender ){
+    IMClient::getInstance()->StartRecordAudio( g_userID.c_str(), ChatType::PrivateChat, "Test Start Audio",  true , [](StatusCode code, const IMMessage& msg){
+        AudioMessage& audioMsg = (AudioMessage&)msg;
+
+        cout<<"发送语音消息"<<code<<":"<<endl;
+        cout<<"时长:"<<audioMsg.audioDuration<<endl;
+        cout<<"Sending:"<<audioMsg.sendStatus<<endl;
+        cout<<"附加信息:"<<audioMsg.extraParam<<endl;
+        cout<<"识别文本:"<<audioMsg.recognizedText<<endl;
+        cout<<"本地路径:"<<audioMsg.audioFilePath<<endl;
+    });
+    
+}
+void SDKTest::onBtnStopAudio( Ref* pSender ){
+    IMClient::getInstance()->StopRecordAndSendAudio();
+    
 }
 
 void SDKTest::loadui(){
@@ -215,21 +244,29 @@ void SDKTest::loadui(){
 }
 
 void SDKTest::loaduimsg(){
-    auto btnLogin = Button::create();
-    btnLogin->setTitleFontSize( 80 );
-    btnLogin->setTitleText("发送文本");
-    btnLogin->setPosition( Vec2( 100,  500  ) );
-    btnLogin->setAnchorPoint( Vec2(0, 0) );
-    btnLogin->addClickEventListener( CC_CALLBACK_1( SDKTest::onBtnSendText, this  ) );
-    addChild( btnLogin );
+    auto btnText = Button::create();
+    btnText->setTitleFontSize( 80 );
+    btnText->setTitleText("发送文本");
+    btnText->setPosition( Vec2( 100,  500  ) );
+    btnText->setAnchorPoint( Vec2(0, 0) );
+    btnText->addClickEventListener( CC_CALLBACK_1( SDKTest::onBtnSendText, this  ) );
+    addChild( btnText );
     
-//    auto btnLogout = Button::create();
-//    btnLogout->setTitleFontSize( 80 );
-//    btnLogout->setTitleText("登出");
-//    btnLogout->setPosition( Vec2( 700,  680  ) );
-//    btnLogout->setAnchorPoint( Vec2(0, 0) );
-//    btnLogout->addClickEventListener( CC_CALLBACK_1( SDKTest::onBtnLogout, this  ) );
-//    addChild( btnLogout );
+    auto btnStartAudio = Button::create();
+    btnStartAudio->setTitleFontSize( 80 );
+    btnStartAudio->setTitleText("开始语音");
+    btnStartAudio->setPosition( Vec2( 400,  500  ) );
+    btnStartAudio->setAnchorPoint( Vec2(0, 0) );
+    btnStartAudio->addClickEventListener( CC_CALLBACK_1( SDKTest::onBtnStartAudio, this  ) );
+    addChild( btnStartAudio );
+    
+    auto btnStopAudio = Button::create();
+    btnStopAudio->setTitleFontSize( 80 );
+    btnStopAudio->setTitleText("停止语音");
+    btnStopAudio->setPosition( Vec2( 800,  500  ) );
+    btnStopAudio->setAnchorPoint( Vec2(0, 0) );
+    btnStopAudio->addClickEventListener( CC_CALLBACK_1( SDKTest::onBtnStopAudio, this  ) );
+    addChild( btnStopAudio );
 
     
 }

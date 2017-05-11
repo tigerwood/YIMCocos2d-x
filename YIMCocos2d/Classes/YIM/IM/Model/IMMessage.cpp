@@ -65,29 +65,29 @@ void AudioMessage::Download( const XString& targetPath, const DownloadAudioCallb
         return;
     }
     
-//    if( downloadStatus == MessageDownloadStatus::DOWNLOADED ){
-//        if( downloadCallback != NULL ){
-//            downloadCallback( StatusCode::Success, *this );
-//            return ;
-//        }
-//    }
-//    
-//    downloadStatus = MessageDownloadStatus::DOWNLOADING;
-//    
-//    IMClient::getInstance()->DownloadFile( requestID, targetPath, [=](StatusCode code, const XString& filePath){
-//        if( code == StatusCode::Success ){
-//            downloadStatus = MessageDownloadStatus::DOWNLOADED;
-//        }
-//        else{
-//            downloadStatus = MessageDownloadStatus::DOWNLOAD_FAIL ;
-//        }
-//        
-//        audioFilePath = filePath;
-//        
-//        if( downloadCallback != NULL ){
-//            downloadCallback( code, *this );
-//        }
-//    });
+    if( downloadStatus == MessageDownloadStatus::DOWNLOADED ){
+        if( downloadCallback != NULL ){
+            downloadCallback( StatusCode::Success, *this );
+            return ;
+        }
+    }
+
+    downloadStatus = MessageDownloadStatus::DOWNLOADING;
+    
+    IMClient::getInstance()->DownloadFile( requestID, targetPath, [=](StatusCode code, const XString& filePath){
+        if( code == StatusCode::Success ){
+            downloadStatus = MessageDownloadStatus::DOWNLOADED;
+        }
+        else{
+            downloadStatus = MessageDownloadStatus::DOWNLOAD_FAIL ;
+        }
+        
+        audioFilePath = filePath;
+        
+        if( downloadCallback != NULL ){
+            downloadCallback( code, *this );
+        }
+    });
     
 }
 

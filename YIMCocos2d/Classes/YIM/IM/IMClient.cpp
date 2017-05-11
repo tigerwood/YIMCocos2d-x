@@ -159,19 +159,18 @@ namespace  YouMe {
 //        }
 //    }
 //    
-//    void IMClient::DownloadFile( XUINT64 requestID,  const XString& targetFilePath, const DownloadCallback& callback ){
-//        auto code = m_imMgr->IMManager()->GetMessageManager()->DownloadFile( requestID, targetFilePath.c_str() );
-//        bool ret = false;
-//        if( code == YIMErrorcode_Success ){
-//            ret = m_imMgr->AddDownloadCallback( requestID, callback );
-//        }
-//        
-//        if( !ret && callback != NULL ) {
-//            //todo
-//            //callback( )
-//            
-//        }
-//    }
+    void IMClient::DownloadFile( XUINT64 requestID,  const XString& targetFilePath, const DownloadCallback& callback ){
+        auto code = m_imMgr->IMManager()->GetMessageManager()->DownloadFile( requestID, targetFilePath.c_str() );
+        bool ret = false;
+        if( code == YIMErrorcode_Success ){
+            ret = m_imMgr->AddDownloadCallback( requestID, callback );
+        }
+        
+        //todo:download的返回结果只告诉下载的地址，都不晓得是哪个消息，靠谱吗？
+        if( !ret && callback != NULL ) {
+            callback( StatusCode::START_DOWNLOAD_FAIL, "" );
+        }
+    }
 
     void IMClient::OnConnect( IMConnectEvent connectEvent ){
         switch ( connectEvent.type ) {
@@ -242,8 +241,60 @@ namespace  YouMe {
         
         return *msg;
     }
+    
+    AudioMessage IMClient::StartRecordAudio(const XString& reciverID, ChatType chatType,const XString&  extraMsg, bool recognizeText, const MessageCallback& sendCallback ){
+        XUINT64 reqID = 0 ;
+        YIMErrorcode code = YIMErrorcode_Success;
+        
+        if( recognizeText ){
+            code = m_imMgr->IMManager()->GetMessageManager()->SendAudioMessage( reciverID.c_str(), YIMChatType(chatType), &reqID );
+        }
+        else{
+            code = m_imMgr->IMManager()->GetMessageManager()->SendOnlyAudioMessage( reciverID.c_str(), YIMChatType(chatType), &reqID );
+        }
+        
+        auto msg = new AudioMessage( GetCurrentUserID().userID, reciverID, (ChatType)chatType, extraMsg, false );
+        
+        if( code == YIMErrorcode_Success ){
+            msg->sendStatus = SendStatus::NotStartSend;
+            msg->requestID = reqID;
+            
+            lastRecordAudioMessage = msg;
+            MessageCallbackObject  callbackObj( (IMMessage*)msg, MessageBodyType_Voice, sendCallback );
+            m_imMgr->AddMessageCallback( reqID,  callbackObj );
+        }
+        else{
+            msg->sendStatus = SendStatus::Fail;
+            //Log::e("Start Record Fail! code:"+code.ToString());
+            if( sendCallback != NULL ){
+                sendCallback( Conv::ErrorCodeConvert( code ), *msg );
+            }
+        }
+        return *msg;
+    }
+    
+    bool IMClient::StopRecordAndSendAudio(){
+        if( lastRecordAudioMessage == NULL ){
+            return false;
+        }
+        
+        auto audioMsg = lastRecordAudioMessage;
+        lastRecordAudioMessage = NULL;
+        if( audioMsg->sendStatus == SendStatus::Fail ){
+            
+            return false;
+        }
+        
+        auto code = m_imMgr->IMManager()->GetMessageManager()->StopAudioMessage( audioMsg->extraParam.c_str() );
+        if( code == YIMErrorcode_Success ){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 //
-//    
+//
 //    ///////////////////////////////////////////////////////////////////////////////////////////////
 //
 //    

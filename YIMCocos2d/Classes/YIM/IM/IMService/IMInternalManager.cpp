@@ -69,7 +69,7 @@ bool IMInternalManager::AddDownloadCallback( XUINT64 reqID, const DownloadCallba
 //登录回调
 #include <iostream>
 using namespace std;
-void IMInternalManager::OnLogin(YIMErrorcode errorcode, const XCHAR* userID)  {
+void IMInternalManager::OnLogin(YIMErrorcode errorcode, const XString& userID)  {
     if( errorcode == YIMErrorcode_Success ){
         m_lastLoginUser.userID = userID;
         
@@ -103,7 +103,7 @@ void IMInternalManager::OnKickOff(){
 
 ///IYIMChatRoomCallback
 //加入频道回调
-void IMInternalManager::OnJoinChatRoom(YIMErrorcode errorcode, const XCHAR* chatRoomID){
+void IMInternalManager::OnJoinChatRoom(YIMErrorcode errorcode, const XString& chatRoomID){
     if( IMClient::getInstance()->channelEventListener != NULL ){
         ChannelEventType et = errorcode == YIMErrorcode_Success ? ChannelEventType::JOIN_SUCCESS : ChannelEventType::JOIN_FAIL ;
         ChannelEvent evt( Conv::ErrorCodeConvert( errorcode), et, chatRoomID );
@@ -111,7 +111,7 @@ void IMInternalManager::OnJoinChatRoom(YIMErrorcode errorcode, const XCHAR* chat
     }
 }
 //离开频道回调
-void IMInternalManager::OnLeaveChatRoom(YIMErrorcode errorcode, const XCHAR* chatRoomID) {
+void IMInternalManager::OnLeaveChatRoom(YIMErrorcode errorcode, const XString& chatRoomID) {
     if( IMClient::getInstance()->channelEventListener != NULL ){
         ChannelEventType et = errorcode == YIMErrorcode_Success ? ChannelEventType::LEAVE_SUCCESS : ChannelEventType::LEAVE_FAIL ;
         ChannelEvent evt( Conv::ErrorCodeConvert( errorcode), et, chatRoomID  );
@@ -122,11 +122,11 @@ void IMInternalManager::OnLeaveChatRoom(YIMErrorcode errorcode, const XCHAR* cha
 
 ///IYIMLocationCallback
 // 获取自己位置回调
-void IMInternalManager::OnUpdateLocation(YIMErrorcode errorcode, GeographyLocation* location){
+void IMInternalManager::OnUpdateLocation(YIMErrorcode errorcode, std::shared_ptr<GeographyLocation> location){
     
 }
 // 获取附近目标回调
-void IMInternalManager::OnGetNearbyObjects(YIMErrorcode errorcode, std::list<RelativeLocation*> neighbourList, unsigned int startDistance, unsigned int endDistance) {
+void IMInternalManager::OnGetNearbyObjects(YIMErrorcode errorcode, std::list< std::shared_ptr<RelativeLocation> >  neighbourList, unsigned int startDistance, unsigned int endDistance) {
     
 }
 
@@ -164,52 +164,57 @@ void IMInternalManager::OnSendMessageStatus(XUINT64 requestID, YIMErrorcode erro
     }
 }
 //停止语音回调（调用StopAudioMessage停止语音之后，发送语音消息之前）
-void IMInternalManager::OnStartSendAudioMessage(XUINT64 requestID, YIMErrorcode errorcode, const XCHAR* text, const XCHAR* audioPath, unsigned int audioTime){
-    //OnSendAudioMessageStatus( requestID, errorcode, text, audioPath, audioTime, false  );
+void IMInternalManager::OnStartSendAudioMessage(XUINT64 requestID, YIMErrorcode errorcode, const XString& text, const XString& audioPath, unsigned int audioTime){
+    OnSendAudioMessageStatusChange( requestID, errorcode, text, audioPath, audioTime, false  );
 }
 //发送语音消息回调
-void IMInternalManager::OnSendAudioMessageStatus(XUINT64 requestID, YIMErrorcode errorcode, const XCHAR* text, const XCHAR* audioPath, unsigned int audioTime){
-     //OnSendAudioMessageStatus( requestID, errorcode, text, audioPath, audioTime, true  );
+void IMInternalManager::OnSendAudioMessageStatus(XUINT64 requestID, YIMErrorcode errorcode, const XString& text, const XString& audioPath, unsigned int audioTime){
+     OnSendAudioMessageStatusChange( requestID, errorcode, text, audioPath, audioTime, true  );
 }
 
-void IMInternalManager::OnSendAudioMessageStatusChange(XUINT64 requestID, YIMErrorcode errorcode, const XCHAR* text, const XCHAR* audioPath, unsigned int audioTime, bool isFinish){
-//    MessageCallbackObject* callbackObj = NULL;
-//    std::map< XUINT64, MessageCallbackObject>::iterator it = m_mapMessageCallback.find( requestID );
-//    if( it != m_mapMessageCallback.end() ){
-//        callbackObj = it->second;
-//        
-//        if( callbackObj != NULL && callbackObj->callback != NULL && callbackObj->msgType == MessageBodyType_Voice ){
-//            AudioMessage* pVoiceMsg = ( AudioMessage*) callbackObj->message;
-//            
-//            pVoiceMsg->recognizedText = text;
-//            pVoiceMsg->audioFilePath = audioPath;
-//            pVoiceMsg->audioDuration = audioTime;
-//            
-//            if( !isFinish ){
-//                pVoiceMsg->sendTime = time(0);
-//            }
-//            
-//            if( errorcode == YIMErrorcode_Success ){
-//                pVoiceMsg->sendStatus = isFinish? SendStatus::Sended : SendStatus::Sending;
-//                if( isFinish ){
-//                    pVoiceMsg->downloadStatus = MessageDownloadStatus::DOWNLOADED;
-//                }
-//            }
-//            else{
-//                pVoiceMsg->sendStatus = SendStatus::Fail;
-//            }
-//            
-//            pVoiceMsg->isReceiveFromServer = false;
-//            
-//            callbackObj->callback( Conv::ErrorCodeConvert( errorcode ), *pVoiceMsg );
-//        }
-//        
-//        m_mapMessageCallback.erase( it );
-//    }
+void IMInternalManager::OnSendAudioMessageStatusChange(XUINT64 requestID, YIMErrorcode errorcode, const XString& text, const XString& audioPath, unsigned int audioTime, bool isFinish){
+    MessageCallbackObject* callbackObj = NULL;
+    std::map< XUINT64, MessageCallbackObject>::iterator it = m_mapMessageCallback.find( requestID );
+    if( it != m_mapMessageCallback.end() ){
+        callbackObj = &(it->second);
+        
+        if( callbackObj != NULL && callbackObj->callback != NULL && callbackObj->msgType == MessageBodyType_Voice ){
+            AudioMessage* pVoiceMsg = ( AudioMessage*) callbackObj->message;
+            
+            pVoiceMsg->recognizedText = text;
+            pVoiceMsg->audioFilePath = audioPath;
+            pVoiceMsg->audioDuration = audioTime;
+            
+            if( !isFinish ){
+                pVoiceMsg->sendTime = time(0);
+            }
+            
+            if( errorcode == YIMErrorcode_Success ){
+                pVoiceMsg->sendStatus = isFinish? SendStatus::Sended : SendStatus::Sending;
+                if( isFinish ){
+                    pVoiceMsg->downloadStatus = MessageDownloadStatus::DOWNLOADED;
+                }
+            }
+            else{
+                pVoiceMsg->sendStatus = SendStatus::Fail;
+            }
+            
+            pVoiceMsg->isReceiveFromServer = false;
+            
+            callbackObj->callback( Conv::ErrorCodeConvert( errorcode ), *pVoiceMsg );
+        }
+       
+        //todo:两个消息，走同一个接口，不太好吧。
+        //消息发送结束了，或者已经出错了，就删掉回调函数了
+        if( isFinish == true || errorcode != YIMErrorcode_Success ){
+            m_mapMessageCallback.erase( it );
+        }
+        
+    }
     
 }
 //收到消息
-void IMInternalManager::OnRecvMessage(IYIMMessage* message) {
+void IMInternalManager::OnRecvMessage(std::shared_ptr<IYIMMessage> message) {
     if( IMClient::getInstance()->receiveMessageListener != NULL && message != NULL ){
         IMMessage* msg = NULL;
         
@@ -218,33 +223,37 @@ void IMInternalManager::OnRecvMessage(IYIMMessage* message) {
             {
                 IYIMMessageBodyText* pTextBody = (IYIMMessageBodyText*)message->GetMessageBody();
                 if( pTextBody ){
-                    msg = new TextMessage( message->GetSenderID(),
+                    TextMessage* textmsg = new TextMessage( message->GetSenderID(),
                                           message->GetReceiveID(),
                                           (ChatType)message->GetChatType(),
                                           pTextBody->GetMessageContent(),
                                           true );
-                    msg->sendTime = message->GetCreateTime();
-                    msg->sendStatus = SendStatus::Sended;
+                    textmsg->sendTime = message->GetCreateTime();
+                    textmsg->sendStatus = SendStatus::Sended;
+                    
+                    msg = textmsg;
                 }
             }
                 break;
-//            case MessageBodyType_Voice:
-//            {
-//                IYIMMessageBodyVoice* pVoiceBody = (IYIMMessageBodyVoice*)message->GetMessageBody();
-//                if( pTextBody ){
-//                    msg = new AudioMessage( message->GetSenderID(),
-//                                          message->GetReceiveID(),
-//                                          message->GetChatType(),
-//                                          pVoiceBody->Param(),
-//                                          true );
-//                    
-//                    msg.recognizedText = pVoiceBody->GetText();
-//                    msg.audioDuration = pVoiceBody->Duration();
-//                    msg.sendTime = pVoiceBody->CreateTime();
-//                    msg.sendStatus = SendStatus::Sended;
-//                }
-//            }
-//                break;
+            case MessageBodyType_Voice:
+            {
+                IYIMMessageBodyAudio* pVoiceBody = (IYIMMessageBodyAudio*)message->GetMessageBody();
+                if( pVoiceBody ){
+                    AudioMessage* audiomsg = new AudioMessage( message->GetSenderID(),
+                                          message->GetReceiveID(),
+                                          (ChatType)message->GetChatType(),
+                                          pVoiceBody->GetExtraParam(),
+                                          true );
+                    
+                    audiomsg->recognizedText = pVoiceBody->GetText();
+                    audiomsg->audioDuration = pVoiceBody->GetAudioTime();
+                    audiomsg->sendTime = message->GetCreateTime();
+                    audiomsg->sendStatus = SendStatus::Sended;
+                    
+                    msg = audiomsg;
+                }
+            }
+                break;
             default:
                 //todo
                 //Log::e("unknown message type:"+message.MessageType.ToString());
@@ -261,31 +270,31 @@ void IMInternalManager::OnRecvMessage(IYIMMessage* message) {
     }
 }
 //获取消息历史纪录回调
-void IMInternalManager::OnQueryHistoryMessage(YIMErrorcode errorcode, const XCHAR* targetID, int remain, std::list<IYIMMessage*> messageList){
+void IMInternalManager::OnQueryHistoryMessage(YIMErrorcode errorcode, const XString& targetID, int remain, std::list<std::shared_ptr<IYIMMessage> > messageList){
     
 }
 //获取房间历史纪录回调
-void IMInternalManager::OnQueryRoomHistoryMessage(YIMErrorcode errorcode, std::list<IYIMMessage*> messageList){
+void IMInternalManager::OnQueryRoomHistoryMessage(YIMErrorcode errorcode, std::list<std::shared_ptr<IYIMMessage> > messageList){
     
 }
 //语音上传后回调
-void IMInternalManager::OnStopAudioSpeechStatus(YIMErrorcode errorcode, IAudioSpeechInfo* audioSpeechInfo){
+void IMInternalManager::OnStopAudioSpeechStatus(YIMErrorcode errorcode, std::shared_ptr<IAudioSpeechInfo> audioSpeechInfo){
     
 }
 
 //新消息通知（只有SetReceiveMessageSwitch设置为不自动接收消息，才会收到该回调）
-void IMInternalManager::OnReceiveMessageNotify(YIMChatType chatType, const XCHAR* targetID){
+void IMInternalManager::OnReceiveMessageNotify(YIMChatType chatType, const XString& targetID){
     
 }
 
 //文本翻译完成回调
-void IMInternalManager::OnTranslateTextComplete(YIMErrorcode errorcode, unsigned int requestID, const XCHAR* text, LanguageCode srcLangCode, LanguageCode destLangCode){
+void IMInternalManager::OnTranslateTextComplete(YIMErrorcode errorcode, unsigned int requestID, const XString& text, LanguageCode srcLangCode, LanguageCode destLangCode){
     
 }
 
 
 ///IYIMDownloadCallback
-void IMInternalManager::OnDownload(XUINT64 messageID, YIMErrorcode errorcode, const XCHAR* savePath){
+void IMInternalManager::OnDownload(XUINT64 messageID, YIMErrorcode errorcode, const XString& savePath){
 //    auto it = m_mapDownloadCallback.find( messageID );
 //    if( it != m_mapDownloadCallback.end() ){
 //        auto callback = it->second;
@@ -299,21 +308,21 @@ void IMInternalManager::OnDownload(XUINT64 messageID, YIMErrorcode errorcode, co
 
 ///IYIMContactCallback
 //获取最近联系人回调
-void IMInternalManager::OnGetRecentContacts(YIMErrorcode errorcode, std::list<const XCHAR*>& contactList) {
+void IMInternalManager::OnGetRecentContacts(YIMErrorcode errorcode, std::list<XString>& contactList) {
     
 }
 //获取用户信息回调(用户信息为JSON格式)
-void IMInternalManager::OnGetUserInfo(YIMErrorcode errorcode, const XCHAR* userInfo){
+void IMInternalManager::OnGetUserInfo(YIMErrorcode errorcode, const XString& userInfo){
     
 }
 //查询用户状态回调
-void IMInternalManager::OnQueryUserStatus(YIMErrorcode errorcode, const XCHAR* userID, YIMUserStatus status){
+void IMInternalManager::OnQueryUserStatus(YIMErrorcode errorcode, const XString& userID, YIMUserStatus status){
     
 }
 
 
 ///IYIMAudioPlayCallback
-void IMInternalManager::OnPlayCompletion(YIMErrorcode errorcode, const XCHAR* path){
+void IMInternalManager::OnPlayCompletion(YIMErrorcode errorcode, const XString& path){
     
 }
 

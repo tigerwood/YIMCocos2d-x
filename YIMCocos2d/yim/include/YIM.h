@@ -116,7 +116,7 @@ class IYIMLoginCallback
 {
 public:
 	//登录回调
-	virtual void OnLogin(YIMErrorcode errorcode, const XCHAR* userID) = 0;
+	virtual void OnLogin(YIMErrorcode errorcode, const XString& userID) = 0;
 	//登出回调
 	virtual void OnLogout(YIMErrorcode errorcode) = 0;
 	//被踢下线
@@ -143,9 +143,9 @@ class IYIMChatRoomCallback
 {
 public:
 	//加入频道回调
-	virtual void OnJoinChatRoom(YIMErrorcode errorcode, const XCHAR* chatRoomID) = 0;
+	virtual void OnJoinChatRoom(YIMErrorcode errorcode, const XString& chatRoomID) = 0;
 	//离开频道回调
-	virtual void OnLeaveChatRoom(YIMErrorcode errorcode, const XCHAR* chatRoomID) = 0;
+	virtual void OnLeaveChatRoom(YIMErrorcode errorcode, const XString& chatRoomID) = 0;
 };
 
 
@@ -216,9 +216,9 @@ class IYIMLocationCallback
 {
 public:
 	// 获取自己位置回调
-	virtual void OnUpdateLocation(YIMErrorcode errorcode, GeographyLocation* location) = 0;
+	virtual void OnUpdateLocation(YIMErrorcode errorcode, std::shared_ptr<GeographyLocation> location) = 0;
 	// 获取附近目标回调
-	virtual void OnGetNearbyObjects(YIMErrorcode errorcode, std::list<RelativeLocation*> neighbourList, unsigned int startDistance, unsigned int endDistance) = 0;
+	virtual void OnGetNearbyObjects(YIMErrorcode errorcode, std::list< std::shared_ptr<RelativeLocation> > neighbourList, unsigned int startDistance, unsigned int endDistance) = 0;
 };
 
 class YIMLocationManager
@@ -600,30 +600,30 @@ public:
 	//发送消息回调
 	virtual void OnSendMessageStatus(XUINT64 requestID, YIMErrorcode errorcode) = 0;
 	//停止语音回调（调用StopAudioMessage停止语音之后，发送语音消息之前）
-	virtual void OnStartSendAudioMessage(XUINT64 requestID, YIMErrorcode errorcode, const XCHAR* text, const XCHAR* audioPath, unsigned int audioTime) = 0;
+	virtual void OnStartSendAudioMessage(XUINT64 requestID, YIMErrorcode errorcode, const XString& text, const XString& audioPath, unsigned int audioTime) = 0;
 	//发送语音消息回调
-	virtual void OnSendAudioMessageStatus(XUINT64 requestID, YIMErrorcode errorcode, const XCHAR* text, const XCHAR* audioPath, unsigned int audioTime) = 0;
+	virtual void OnSendAudioMessageStatus(XUINT64 requestID, YIMErrorcode errorcode, const XString& text, const XString& audioPath, unsigned int audioTime) = 0;
 	//收到消息
-	virtual void OnRecvMessage(IYIMMessage* message) = 0;
+	virtual void OnRecvMessage( std::shared_ptr<IYIMMessage> message) = 0;
 	//获取消息历史纪录回调
-	virtual void OnQueryHistoryMessage(YIMErrorcode errorcode, const XCHAR* targetID, int remain, std::list<IYIMMessage*> messageList) = 0;
+	virtual void OnQueryHistoryMessage(YIMErrorcode errorcode, const XString& targetID, int remain, std::list<std::shared_ptr<IYIMMessage> > messageList) = 0;
 	//获取房间历史纪录回调
-	virtual void OnQueryRoomHistoryMessage(YIMErrorcode errorcode, std::list<IYIMMessage*> messageList) = 0;
+	virtual void OnQueryRoomHistoryMessage(YIMErrorcode errorcode, std::list<std::shared_ptr<IYIMMessage> > messageList) = 0;
 	//语音上传后回调
-	virtual void OnStopAudioSpeechStatus(YIMErrorcode errorcode, IAudioSpeechInfo* audioSpeechInfo) = 0;
+	virtual void OnStopAudioSpeechStatus(YIMErrorcode errorcode, std::shared_ptr<IAudioSpeechInfo> audioSpeechInfo) = 0;
 
 	//新消息通知（只有SetReceiveMessageSwitch设置为不自动接收消息，才会收到该回调）
-	virtual void OnReceiveMessageNotify(YIMChatType chatType, const XCHAR* targetID) = 0;
+	virtual void OnReceiveMessageNotify(YIMChatType chatType,  const XString&  targetID) = 0;
 
 	//文本翻译完成回调
-	virtual void OnTranslateTextComplete(YIMErrorcode errorcode, unsigned int requestID, const XCHAR* text, LanguageCode srcLangCode, LanguageCode destLangCode) = 0;
+	virtual void OnTranslateTextComplete(YIMErrorcode errorcode, unsigned int requestID, const XString& text, LanguageCode srcLangCode, LanguageCode destLangCode) = 0;
 };
 
 //下载回调
 class IYIMDownloadCallback
 {
 public:
-	virtual void OnDownload(XUINT64 messageID, YIMErrorcode errorcode, const XCHAR* savePath) = 0;
+	virtual void OnDownload(XUINT64 messageID, YIMErrorcode errorcode, const XString& savePath) = 0;
 };
 
 
@@ -638,11 +638,11 @@ class IYIMContactCallback
 {
 public:
 	//获取最近联系人回调
-	virtual void OnGetRecentContacts(YIMErrorcode errorcode, std::list<const XCHAR*>& contactList) = 0;
+	virtual void OnGetRecentContacts(YIMErrorcode errorcode, std::list<XString>& contactList) = 0;
 	//获取用户信息回调(用户信息为JSON格式)
-	virtual void OnGetUserInfo(YIMErrorcode errorcode, const XCHAR* userInfo) = 0;
+	virtual void OnGetUserInfo(YIMErrorcode errorcode, const XString&  userInfo) = 0;
 	//查询用户状态回调
-	virtual void OnQueryUserStatus(YIMErrorcode errorcode, const XCHAR* userID, YIMUserStatus status) = 0;
+	virtual void OnQueryUserStatus(YIMErrorcode errorcode, const XString&  userID, YIMUserStatus status) = 0;
 };
 
 //语音播放回调
@@ -650,7 +650,7 @@ class IYIMAudioPlayCallback
 {
 public:
 	//播放完成
-	virtual void OnPlayCompletion(YIMErrorcode errorcode, const XCHAR* path) = 0;
+	virtual void OnPlayCompletion(YIMErrorcode errorcode, const XString& path) = 0;
 };
 
 //消息管理器
@@ -790,6 +790,8 @@ public:
 	YIMErrorcode StopPlayAudio();
 	//查询播放状态
 	bool IsPlaying();
+	//语音结束后是否保持原Category(IOS)
+	void SetKeepRecordModel(bool keep);
 
 	//获取语音缓存目录
 	XString GetAudioCachePath();
